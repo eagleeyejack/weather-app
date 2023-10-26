@@ -48,7 +48,7 @@ function SearchHomeScreen() {
 				Toast.show({
 					type: "error",
 					text1: "Error",
-					text2: error,
+					text2: error.message,
 					autoHide: false
 				})
 			}

@@ -17,22 +17,13 @@ function LocationScreen() {
 
 	const { width } = useWindowDimensions()
 
-	const {
-		data: weather,
-		isSuccess: weatherIsSuccess,
-		refetch: weatherRefetch
-	} = useQuery({
+	const { data: weather } = useQuery({
 		queryKey: ["weather", route.params.location],
 		queryFn: async () => getWeather(route.params.location),
 		enabled: !!route.params.location
 	})
 
-	const {
-		data: forecast,
-		isLoading: forecastIsLoading,
-		isSuccess: forecastIsSuccess,
-		refetch: forecastRefetch
-	} = useQuery({
+	const { data: forecast } = useQuery({
 		queryKey: ["forecast", route.params.location],
 		queryFn: async () => getForecast(route.params.location),
 		enabled: !!route.params.location

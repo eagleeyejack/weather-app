@@ -2,7 +2,7 @@ import React from "react"
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native"
 
 import Card from "../../../shared/components/UI/Card"
-import { colors, spacing } from "../../../shared/theme"
+import { spacing } from "../../../shared/theme"
 
 const WeatherInfo = ({ data }) => {
 	if (!data) {

@@ -2,7 +2,6 @@ import React from "react"
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native"
 
 import Card from "../../../shared/components/UI/Card"
-import { spacing } from "../../../shared/theme"
 
 const WeatherDay = ({ data }) => {
 	if (!data) {

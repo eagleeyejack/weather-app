@@ -1,6 +1,13 @@
 import React, { ReactNode, createContext, useContext, useEffect, useState } from "react"
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import * as Location from "expo-location"
+
+import { getDataAsyncStorage } from "../utils"
+
+/* 
+	Should these context providers be split up into their own files? 
+*/
 
 interface SearchContextProps {
 	search: {
@@ -8,16 +15,20 @@ interface SearchContextProps {
 			name: string
 			searchQuery: string
 		} | null
-		locations: any[]
-	}
-	setSearch: {
-		locations: React.Dispatch<React.SetStateAction<any[]>>
-		currentLocation: React.Dispatch<
+		set: React.Dispatch<
 			React.SetStateAction<{
 				name: string
 				searchQuery: string
 			} | null>
 		>
+	}
+	locations: {
+		data: {
+			name: string
+			searchQuery: string
+		}[]
+		set: (locs: any[]) => Promise<void>
+		remove: (location: any) => Promise<void>
 	}
 	permissions: {
 		requestLocation: () => Promise<Location.LocationObject | null>
@@ -46,12 +57,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 			name: string
 			searchQuery: string
 		}[]
-	>([
-		{
-			name: "Cardiff",
-			searchQuery: "Cardiff"
-		}
-	])
+	>([])
 
 	const [canAskAgain, setCanAskAgain] = useState<boolean>(null)
 	const [status, setStatus] = useState<Location.PermissionStatus | null>(null)
@@ -64,11 +70,21 @@ export function SearchProvider({ children }: SearchProviderProps) {
 		searchQuery: ""
 	})
 
-	/* 
-	https://github.com/expo/expo/issues/19047 
+	useEffect(() => {
+		;(async () => {
+			const locations = await getDataAsyncStorage({ key: "locations" })
 
-	Seems to be an issue with requesting permission in the app, 
-	have opted to route the user to settings.
+			if (locations) {
+				setLocations(locations)
+			}
+		})()
+	}, [])
+
+	/* 
+		https://github.com/expo/expo/issues/19047 
+
+		Seems to be an issue with requesting permission in the app, 
+		have opted to route the user to settings with less than optimal UX of having to 'reset' the app.
 	
 	*/
 	async function requestLocationPermissions() {
@@ -102,16 +118,40 @@ export function SearchProvider({ children }: SearchProviderProps) {
 		})()
 	}, [])
 
+	/*
+		Using AsyncStorage to save locations vs a database for ease of implementation.
+		
+		One approach could have been creating a User table, wrapping the application with an Auth Higher-order component.
+		Once the user signs in, then show the app and allow the user to write to a Locations table that has a one to many (user -> locations) relationship. 
+
+		If signed in, fetch existing locations.
+	*/
+
+	async function handleSaveLocations(locs: any[]) {
+		setLocations(locs)
+		// save locations to async storage
+		await AsyncStorage.setItem("locations", JSON.stringify(locs))
+	}
+
+	async function handleRemoveLocation(location: any) {
+		const newLocations = locations.filter((loc) => loc.searchQuery !== location.searchQuery)
+
+		setLocations(newLocations)
+
+		await AsyncStorage.setItem("locations", JSON.stringify(newLocations))
+	}
+
 	return (
 		<SearchContext.Provider
 			value={{
 				search: {
 					currentLocation: currentLocation,
-					locations: locations
+					set: setCurrentLocation
 				},
-				setSearch: {
-					currentLocation: setCurrentLocation,
-					locations: setLocations
+				locations: {
+					data: locations,
+					set: handleSaveLocations,
+					remove: handleRemoveLocation
 				},
 				permissions: {
 					requestLocation: requestLocationPermissions,

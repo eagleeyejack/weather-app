@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 
+import Ionicons from "@expo/vector-icons/Ionicons"
 import { useQuery } from "@tanstack/react-query"
 import Toast from "react-native-toast-message"
 
@@ -19,7 +20,7 @@ import { colors, spacing } from "../../shared/theme"
 function SearchHomeScreen() {
 	const navigation = useNavigation<NativeStackNavigationProp<SearchStackParamsList>>()
 
-	const { search, setSearch } = useSearch()
+	const { locations } = useSearch()
 
 	const [locationString, setLocationString] = useState("")
 
@@ -29,9 +30,8 @@ function SearchHomeScreen() {
 			try {
 				const res = await getWeather(locationString)
 
-				setSearch.locations([
-					...search.locations,
-
+				locations.set([
+					...locations.data,
 					{
 						name: locationString,
 						searchQuery: locationString
@@ -86,19 +86,28 @@ function SearchHomeScreen() {
 					<View>
 						<Text style={styles.title}>Saved Searches</Text>
 					</View>
-					{search.locations?.map((location) => {
+					{locations?.data.map((location) => {
 						return (
-							<TouchableOpacity
-								key={location.searchQuery}
-								style={styles.card}
-								onPress={() => {
-									navigation.navigate(SearchRoutes.LOCATION, {
-										location: location?.searchQuery
-									})
-								}}
-							>
-								<Text>{location.name}</Text>
-							</TouchableOpacity>
+							<View key={location.searchQuery} style={styles.card}>
+								<TouchableOpacity
+									style={styles.textWrap}
+									onPress={() => {
+										navigation.navigate(SearchRoutes.LOCATION, {
+											location: location?.searchQuery
+										})
+									}}
+								>
+									<Text>{location.name}</Text>
+								</TouchableOpacity>
+								<TouchableOpacity
+									style={styles.iconWrap}
+									onPress={() => {
+										locations.remove(location)
+									}}
+								>
+									<Ionicons name="trash" size={24} color="black" />
+								</TouchableOpacity>
+							</View>
 						)
 					})}
 				</Fill>
@@ -119,9 +128,18 @@ const styles = StyleSheet.create({
 		marginBottom: spacing.sm
 	},
 	card: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		alignItems: "center",
 		backgroundColor: colors.white,
 		borderRadius: 10,
-		marginBottom: spacing.sm,
+		marginBottom: spacing.sm
+	},
+	textWrap: {
+		flex: 1,
+		padding: spacing.sm
+	},
+	iconWrap: {
 		padding: spacing.sm
 	}
 })

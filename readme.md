@@ -8,8 +8,7 @@ Display the current weather conditions
 - temperature ✅
 - weather description ✅
 - and any other relevant information for the user's current location ✅
-
-- handle state for not accepting permissions
+- handle state for not accepting permissions ✅
 
 b. Forecast screen:
 Display a 5-day weather forecast for the user's current location ✅

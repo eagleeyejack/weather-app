@@ -19,6 +19,11 @@ interface SearchContextProps {
 			} | null>
 		>
 	}
+	permissions: {
+		requestLocation: () => Promise<Location.LocationObject | null>
+		canAskAgain: boolean
+		status: Location.PermissionStatus | null
+	}
 }
 
 const SearchContext = createContext<SearchContextProps | undefined>(undefined)
@@ -48,6 +53,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
 		}
 	])
 
+	const [canAskAgain, setCanAskAgain] = useState<boolean>(null)
+	const [status, setStatus] = useState<Location.PermissionStatus | null>(null)
+
 	const [currentLocation, setCurrentLocation] = useState<{
 		name: string
 		searchQuery: string
@@ -56,19 +64,40 @@ export function SearchProvider({ children }: SearchProviderProps) {
 		searchQuery: ""
 	})
 
+	/* 
+	https://github.com/expo/expo/issues/19047 
+
+	Seems to be an issue with requesting permission in the app, 
+	have opted to route the user to settings.
+	
+	*/
+	async function requestLocationPermissions() {
+		let { status, canAskAgain: deviceCanAskAgain } =
+			await Location.requestForegroundPermissionsAsync()
+
+		setCanAskAgain(deviceCanAskAgain)
+		setStatus(status)
+
+		if (status !== "granted") {
+			return null
+		}
+
+		let location = await Location.getCurrentPositionAsync({})
+
+		return location
+	}
+
 	useEffect(() => {
 		;(async () => {
-			let { status } = await Location.requestForegroundPermissionsAsync()
-			if (status !== "granted") {
-				// setErrorMsg("Permission to access location was denied")
+			const loc = await requestLocationPermissions()
+
+			if (!loc) {
 				return
 			}
 
-			let location = await Location.getCurrentPositionAsync({})
-
 			setCurrentLocation({
 				name: "Current Location",
-				searchQuery: `${location.coords.latitude},${location.coords.longitude}`
+				searchQuery: `${loc.coords.latitude},${loc.coords.longitude}`
 			})
 		})()
 	}, [])
@@ -83,6 +112,11 @@ export function SearchProvider({ children }: SearchProviderProps) {
 				setSearch: {
 					currentLocation: setCurrentLocation,
 					locations: setLocations
+				},
+				permissions: {
+					requestLocation: requestLocationPermissions,
+					canAskAgain: canAskAgain,
+					status: status
 				}
 			}}
 		>

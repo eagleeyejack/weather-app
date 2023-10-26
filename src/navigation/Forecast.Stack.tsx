@@ -19,7 +19,13 @@ export const ForecastStack = () => {
 
 	return (
 		<Stack.Navigator screenOptions={stackHeaderOptions}>
-			<Stack.Screen name={ForecastRoutes.FORECAST_HOME_STACK} component={ForecastHomeScreen} />
+			<Stack.Screen
+				name={ForecastRoutes.FORECAST_HOME_STACK}
+				component={ForecastHomeScreen}
+				options={{
+					title: "Forecast"
+				}}
+			/>
 		</Stack.Navigator>
 	)
 }

@@ -24,7 +24,13 @@ export const SearchStack = () => {
 
 	return (
 		<Stack.Navigator screenOptions={stackHeaderOptions}>
-			<Stack.Screen name={SearchRoutes.SEARCH_HOME_STACK} component={SearchHomeScreen} />
+			<Stack.Screen
+				name={SearchRoutes.SEARCH_HOME_STACK}
+				component={SearchHomeScreen}
+				options={{
+					title: "Location Search"
+				}}
+			/>
 			<Stack.Screen
 				name={SearchRoutes.LOCATION}
 				component={LocationScreen}

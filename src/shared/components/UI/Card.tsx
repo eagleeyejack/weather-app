@@ -3,8 +3,8 @@ import { StyleSheet, TouchableOpacity, View } from "react-native"
 
 import { colors, spacing } from "../../theme"
 
-const Card = ({ children }) => {
-	return <View style={styles.card}>{children}</View>
+const Card = ({ style, children }: { style?: any; children: React.ReactNode }) => {
+	return <View style={{ ...styles.card, ...style }}>{children}</View>
 }
 
 const PressableCard = ({ children, onPress }) => {

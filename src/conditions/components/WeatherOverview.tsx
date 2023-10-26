@@ -4,7 +4,6 @@ import { ActivityIndicator } from "react-native"
 import { useQuery } from "@tanstack/react-query"
 import Toast from "react-native-toast-message"
 
-import { ConditionsRoutes } from "../../navigation/routes"
 import Card from "../../shared/components/UI/Card"
 import { getWeather } from "../../shared/db/getWeather"
 import WeatherInfo from "./data-display/WeatherInfo"
@@ -39,7 +38,11 @@ function WeatherOverview({ location }: IWeatherOverview) {
 
 	if (isLoading && !isSuccess) {
 		return (
-			<Card>
+			<Card
+				style={{
+					minHeight: 190
+				}}
+			>
 				<ActivityIndicator />
 			</Card>
 		)

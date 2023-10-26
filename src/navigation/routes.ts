@@ -1,4 +1,4 @@
-export enum CurrentWeatherRoutes {
+export enum ConditionsRoutes {
 	CURRENT_WEATHER_HOME_STACK = "CURRENT_WEATHER_HOME_STACK",
 	LOCATION = "CURRENT_WEATHER_LOCATION"
 }
@@ -6,4 +6,9 @@ export enum CurrentWeatherRoutes {
 export enum ForecastRoutes {
 	FORECAST_HOME_STACK = "FORECAST_HOME_STACK",
 	LOCATION = "FORECAST_LOCATION"
+}
+
+export enum SearchRoutes {
+	SEARCH_HOME_STACK = "SEARCH_HOME_STACK",
+	LOCATION = "SEARCH_LOCATION"
 }

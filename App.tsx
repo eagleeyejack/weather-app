@@ -1,14 +1,22 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 
-import { StatusBar } from "expo-status-bar"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { NavigationContainer } from "@react-navigation/native"
+
+import { CurrentWeatherStack } from "./src/navigation/CurrentWeather.Stack"
+import { ForecastStack } from "./src/navigation/Forecast.Stack"
+
+const Tab = createBottomTabNavigator()
 
 export default function App() {
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<NavigationContainer>
+			<Tab.Navigator screenOptions={{ headerShown: false }}>
+				<Tab.Screen name="HomeStack" component={CurrentWeatherStack} />
+				<Tab.Screen name="ForecastStack" component={ForecastStack} />
+			</Tab.Navigator>
+		</NavigationContainer>
 	)
 }
 

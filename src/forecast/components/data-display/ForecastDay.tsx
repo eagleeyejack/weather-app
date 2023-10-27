@@ -3,7 +3,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native"
 
 import Card from "../../../shared/components/UI/Card"
 
-const WeatherDay = ({ data }) => {
+const ForecastDay = ({ data }) => {
 	if (!data) {
 		return (
 			<Card>
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default WeatherDay
+export default ForecastDay

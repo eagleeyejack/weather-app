@@ -6,7 +6,7 @@ import { RouteProp, useRoute } from "@react-navigation/native"
 import { useQuery } from "@tanstack/react-query"
 
 import WeatherInfo from "../../conditions/components/data-display/WeatherInfo"
-import WeatherDay from "../../forecast/components/data-display/ForecastDay"
+import ForecastDay from "../../forecast/components/data-display/ForecastDay"
 import { Fill, Layout } from "../../shared/components/UI/Layout"
 import { getForecast } from "../../shared/db/getForecast"
 import { getWeather } from "../../shared/db/getWeather"
@@ -60,7 +60,7 @@ function LocationScreen() {
 								marginBottom: spacing.sm
 							}}
 						>
-							<WeatherDay data={dayData} />
+							<ForecastDay data={dayData} />
 						</View>
 					))}
 				</ScrollView>

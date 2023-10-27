@@ -10,7 +10,7 @@ import RequestLocationPermissions from "../../shared/components/data-input/Reque
 import { useSearch } from "../../shared/context/Search.Context"
 import { getForecast } from "../../shared/db/getForecast"
 import { spacing } from "../../shared/theme"
-import WeatherDay from "../components/data-display/ForecastDay"
+import ForecastDay from "../components/data-display/ForecastDay"
 
 function ForecastHomeScreen() {
 	const { search, permissions } = useSearch()
@@ -87,7 +87,7 @@ function ForecastHomeScreen() {
 								marginBottom: spacing.sm
 							}}
 						>
-							<WeatherDay data={dayData} />
+							<ForecastDay data={dayData} />
 						</View>
 					))}
 				</ScrollView>

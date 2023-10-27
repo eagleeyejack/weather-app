@@ -22,7 +22,7 @@ const WeatherInfo = ({ data }) => {
 	return (
 		<Card>
 			<View style={styles.container}>
-				<Text style={styles.locationText}>
+				<Text style={styles.locationText} testID="location">
 					{name}, {country}
 				</Text>
 				<View style={styles.weatherContainer}>
@@ -30,8 +30,12 @@ const WeatherInfo = ({ data }) => {
 						<Image style={styles.weatherIcon} source={{ uri: `https:${condition.icon}` }} />
 					</View>
 					<View>
-						<Text style={styles.weatherText}>{condition.text}</Text>
-						<Text style={styles.temperatureText}>{temp_c}°C</Text>
+						<Text style={styles.weatherText} testID="weather-condition">
+							{condition.text}
+						</Text>
+						<Text style={styles.temperatureText} testID="temperature">
+							{temp_c}°C
+						</Text>
 					</View>
 				</View>
 			</View>

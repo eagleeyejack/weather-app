@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, TouchableOpacity, View, ViewStyle } from
 
 import Ionicons from "@expo/vector-icons/Ionicons"
 
-import { colors, radius, spacing } from "../../theme"
+import { colors, spacing } from "../../theme"
 import Text from "../data-display/Text"
 
 interface Props {

@@ -5,16 +5,18 @@ import * as Location from "expo-location"
 
 import { getDataAsyncStorage } from "../utils"
 
+interface ILocation {
+	name: string
+	searchQuery: string
+}
+
 /* 
 	Should these context providers be split up into their own files? 
 */
 
 interface SearchContextProps {
 	search: {
-		currentLocation: {
-			name: string
-			searchQuery: string
-		} | null
+		currentLocation: ILocation | null
 		set: React.Dispatch<
 			React.SetStateAction<{
 				name: string
@@ -23,12 +25,9 @@ interface SearchContextProps {
 		>
 	}
 	locations: {
-		data: {
-			name: string
-			searchQuery: string
-		}[]
-		set: (locs: any[]) => Promise<void>
-		remove: (location: any) => Promise<void>
+		data: ILocation[]
+		set: (locs: ILocation[]) => Promise<void>
+		remove: (location: ILocation) => Promise<void>
 	}
 	permissions: {
 		requestLocation: () => Promise<Location.LocationObject | null>
@@ -88,7 +87,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 	
 	*/
 	async function requestLocationPermissions() {
-		let { status, canAskAgain: deviceCanAskAgain } =
+		const { status, canAskAgain: deviceCanAskAgain } =
 			await Location.requestForegroundPermissionsAsync()
 
 		setCanAskAgain(deviceCanAskAgain)
@@ -98,7 +97,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 			return null
 		}
 
-		let location = await Location.getCurrentPositionAsync({})
+		const location = await Location.getCurrentPositionAsync({})
 
 		return location
 	}
@@ -127,13 +126,13 @@ export function SearchProvider({ children }: SearchProviderProps) {
 		If signed in, fetch existing locations.
 	*/
 
-	async function handleSaveLocations(locs: any[]) {
+	async function handleSaveLocations(locs: ILocation[]) {
 		setLocations(locs)
 		// save locations to async storage
 		await AsyncStorage.setItem("locations", JSON.stringify(locs))
 	}
 
-	async function handleRemoveLocation(location: any) {
+	async function handleRemoveLocation(location: ILocation) {
 		const newLocations = locations.filter((loc) => loc.searchQuery !== location.searchQuery)
 
 		setLocations(newLocations)

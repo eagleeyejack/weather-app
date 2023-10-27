@@ -28,7 +28,8 @@ export const SearchStack = () => {
 				name={SearchRoutes.SEARCH_HOME_STACK}
 				component={SearchHomeScreen}
 				options={{
-					title: "Location Search"
+					title: "Location Search",
+					headerShown: false
 				}}
 			/>
 			<Stack.Screen

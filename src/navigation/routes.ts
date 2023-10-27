@@ -1,3 +1,11 @@
+/* eslint-disable no-unused-vars */
+
+export enum AppRoutes {
+	CONDITIONS_STACK = "CONDITIONS_STACK",
+	FORECAST_STACK = "FORECAST_STACK",
+	SEARCH_STACK = "SEARCH_STACK"
+}
+
 export enum ConditionsRoutes {
 	CURRENT_WEATHER_HOME_STACK = "CURRENT_WEATHER_HOME_STACK",
 	LOCATION = "CURRENT_WEATHER_LOCATION"

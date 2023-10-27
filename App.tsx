@@ -9,13 +9,19 @@ import Toast from "react-native-toast-message"
 
 import { ConditionsStack } from "./src/navigation/Conditions.Stack"
 import { ForecastStack } from "./src/navigation/Forecast.Stack"
-import { SearchStack } from "./src/navigation/Search.Stack"
+import { AppRoutes } from "./src/navigation/routes"
 import { SearchProvider } from "./src/shared/context/Search.Context"
 import { colors } from "./src/shared/theme"
 
 const Tab = createBottomTabNavigator()
 
 const queryClient = new QueryClient()
+
+export type AppParamsList = {
+	[AppRoutes.CONDITIONS_STACK]: undefined
+	[AppRoutes.FORECAST_STACK]: undefined
+	[AppRoutes.SEARCH_STACK]: undefined
+}
 
 export default function App() {
 	return (
@@ -28,12 +34,10 @@ export default function App() {
 							tabBarIcon: ({ focused, color, size }) => {
 								let iconName
 
-								if (route.name === "HomeStack") {
+								if (route.name === AppRoutes.CONDITIONS_STACK) {
 									iconName = focused ? "rainy" : "rainy-outline"
-								} else if (route.name === "ForecastStack") {
+								} else if (route.name === AppRoutes.FORECAST_STACK) {
 									iconName = focused ? "calendar" : "calendar-outline"
-								} else if (route.name === "SearchStack") {
-									iconName = focused ? "search" : "search-outline"
 								}
 
 								return <Ionicons name={iconName} size={size} color={color} />
@@ -44,24 +48,17 @@ export default function App() {
 						})}
 					>
 						<Tab.Screen
-							name="HomeStack"
+							name={AppRoutes.CONDITIONS_STACK}
 							component={ConditionsStack}
 							options={{
 								title: "Conditions"
 							}}
 						/>
 						<Tab.Screen
-							name="ForecastStack"
+							name={AppRoutes.FORECAST_STACK}
 							component={ForecastStack}
 							options={{
 								title: "Forecast"
-							}}
-						/>
-						<Tab.Screen
-							name="SearchStack"
-							component={SearchStack}
-							options={{
-								title: "Search"
 							}}
 						/>
 					</Tab.Navigator>

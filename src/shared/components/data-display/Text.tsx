@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleProp, StyleSheet, Text as TextRN } from "react-native"
+import { StyleSheet, Text as TextRN, TextStyle } from "react-native"
 
 import { colors } from "../../theme"
 
@@ -45,7 +45,7 @@ const Text = ({
 	weight?: "600" | "400"
 	align?: "left" | "center" | "right"
 	numberOfLines?: number
-	style?: StyleProp<any>
+	style?: TextStyle
 	testID?: string
 	children: React.ReactNode
 	onPress?: () => void

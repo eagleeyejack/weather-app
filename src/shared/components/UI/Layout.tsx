@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback, useState } from "react"
 import {
 	KeyboardAvoidingView,
 	Platform,
@@ -13,7 +13,13 @@ import { useHeaderHeight } from "@react-navigation/elements"
 
 import { colors, spacing } from "../../theme"
 
-const Layout = ({ backgroundColor, children }: { backgroundColor?: string; children: any }) => {
+const Layout = ({
+	backgroundColor,
+	children
+}: {
+	backgroundColor?: string
+	children: React.ReactNode
+}) => {
 	return (
 		<SafeAreaView
 			style={{
@@ -55,11 +61,11 @@ const Fill = ({
 	}
 	backgroundColor?: string
 	onRefresh?: () => Promise<void>
-	children: any
+	children: React.ReactNode
 }) => {
-	const [refreshing, setRefreshing] = React.useState(false)
+	const [refreshing, setRefreshing] = useState(false)
 
-	const onRefreshPull = React.useCallback(async () => {
+	const onRefreshPull = useCallback(async () => {
 		setRefreshing(true)
 
 		await onRefresh()
@@ -121,7 +127,7 @@ const KeyboardLayout = ({
 		right?: number
 		bottom?: number
 	}
-	children: any
+	children: React.ReactNode
 }) => {
 	const height = useHeaderHeight()
 
@@ -159,7 +165,7 @@ const Center = ({
 		bottom?: number
 	}
 	height?: number
-	children: any
+	children: React.ReactNode
 }) => {
 	return (
 		<View

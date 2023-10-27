@@ -1,3 +1,4 @@
+import React from "react"
 import { Linking, View } from "react-native"
 
 import { useSearch } from "../../context/Search.Context"

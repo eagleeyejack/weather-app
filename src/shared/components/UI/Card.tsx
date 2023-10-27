@@ -1,9 +1,9 @@
 import React from "react"
-import { StyleSheet, TouchableOpacity, View } from "react-native"
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native"
 
 import { colors, spacing } from "../../theme"
 
-const Card = ({ style, children }: { style?: any; children: React.ReactNode }) => {
+const Card = ({ style, children }: { style?: ViewStyle; children: React.ReactNode }) => {
 	return <View style={{ ...styles.card, ...style }}>{children}</View>
 }
 

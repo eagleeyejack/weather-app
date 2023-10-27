@@ -27,3 +27,6 @@ Implement the ability for the user to:
 Please provide a GitHub repository link containing your React Native code along with a README file explaining how to run the app and any additional information you think is necessary. ❌
 
 Note: You are free to use any additional libraries or tools you deem necessary to complete the task. Focus on writing clean, maintainable code, and demonstrate your proficiency in working with React Native components, state management, API integration, and navigation.
+
+Android ✅
+iOS ✅

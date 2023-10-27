@@ -17,13 +17,13 @@ function LocationScreen() {
 
 	const { width } = useWindowDimensions()
 
-	const { data: weather } = useQuery({
+	const { data: weather, refetch: refetchWeather } = useQuery({
 		queryKey: ["weather", route.params.location],
 		queryFn: async () => getWeather(route.params.location),
 		enabled: !!route.params.location
 	})
 
-	const { data: forecast } = useQuery({
+	const { data: forecast, refetch: refetchForecast } = useQuery({
 		queryKey: ["forecast", route.params.location],
 		queryFn: async () => getForecast(route.params.location),
 		enabled: !!route.params.location
@@ -34,6 +34,10 @@ function LocationScreen() {
 			<Fill
 				margin={{
 					top: spacing.sm
+				}}
+				onRefresh={async () => {
+					await refetchWeather()
+					await refetchForecast()
 				}}
 			>
 				<View

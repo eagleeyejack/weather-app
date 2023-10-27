@@ -29,7 +29,8 @@ export const HeaderBackButton = ({
 const styles = StyleSheet.create({
 	container: {
 		flexDirection: "row",
-		alignItems: "center"
+		alignItems: "center",
+		marginRight: 10
 	},
 	inner: {
 		flexDirection: "row",

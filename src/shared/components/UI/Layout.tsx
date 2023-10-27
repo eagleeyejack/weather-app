@@ -2,6 +2,7 @@ import React from "react"
 import {
 	KeyboardAvoidingView,
 	Platform,
+	RefreshControl,
 	SafeAreaView,
 	ScrollView,
 	StyleSheet,
@@ -31,6 +32,7 @@ const Fill = ({
 	padding,
 	backgroundColor,
 	scroll,
+	onRefresh,
 	children
 }: {
 	center?: boolean
@@ -52,8 +54,18 @@ const Fill = ({
 		showsVerticalScrollIndicator?: boolean
 	}
 	backgroundColor?: string
+	onRefresh?: () => Promise<void>
 	children: any
 }) => {
+	const [refreshing, setRefreshing] = React.useState(false)
+
+	const onRefreshPull = React.useCallback(async () => {
+		setRefreshing(true)
+
+		await onRefresh()
+		setRefreshing(false)
+	}, [])
+
 	return (
 		<ScrollView
 			decelerationRate={scroll?.decelerationRate ? scroll?.decelerationRate : undefined}
@@ -67,6 +79,9 @@ const Fill = ({
 				...{ ...(center && styles.center) },
 				...(backgroundColor && { backgroundColor })
 			}}
+			refreshControl={
+				<RefreshControl refreshing={refreshing} onRefresh={onRefresh && onRefreshPull} />
+			}
 		>
 			<View
 				style={{

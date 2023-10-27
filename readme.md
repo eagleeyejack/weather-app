@@ -1,32 +1,86 @@
-Todo List:
+# WeatherApp
 
-The app should have two screens: (I have three at the moment, can move the search into the main page as there's space?) ❌
+This README provides step-by-step instructions for pulling and running WeatherApp locally on your development machine and launching it on iOS and Android emulators. By following these steps, you'll be able to quickly set up and test your Expo app on both platforms.
 
-a. Home screen
-Display the current weather conditions
+## Prerequisites
 
-- temperature ✅
-- weather description ✅
-- and any other relevant information for the user's current location ✅
-- handle state for not accepting permissions ✅
+Before you begin, make sure you have the following installed on your development machine:
 
-b. Forecast screen:
-Display a 5-day weather forecast for the user's current location ✅
+- [Node.js](https://nodejs.org/) (recommended version: 18 or newer)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install/) package manager
+- [Expo CLI](https://docs.expo.dev/get-started/installation/) installed globally
+- Xcode (for iOS emulator)
+- Android Studio (for Android emulator)
 
-The app should make use of an open API to fetch weather data. You can choose any open weather API of your choice (e.g., OpenWeatherMap, WeatherAPI, etc.). ✅
+## Step 1: Clone the Project
 
-The app should handle errors gracefully. If there is an error fetching weather data or the API returns an error response, display an appropriate error message to the user. ✅
+Clone the Expo project repository to your local machine using Git:
 
-Use React Navigation or any other navigation library of your choice to implement navigation between the home and forecast screens. ✅
+```bash
+git clone git@github.com:eagleeyejack/weather-app.git
+cd weather-app
+```
 
-Implement the ability for the user to:
+## Step 2: Install Dependencies
 
-- search for weather conditions in different locations ✅
-- save a City once you’ve searched for it (async storage, leave comments about using a DB) ✅
+Install the project dependencies using Yarn. Run one of the following commands depending on your package manager:
 
-Please provide a GitHub repository link containing your React Native code along with a README file explaining how to run the app and any additional information you think is necessary. ❌
+Using Yarn:
 
-Note: You are free to use any additional libraries or tools you deem necessary to complete the task. Focus on writing clean, maintainable code, and demonstrate your proficiency in working with React Native components, state management, API integration, and navigation.
+```bash
+yarn install
+```
 
-Android ✅
-iOS ✅
+## Step 3: Start the Development Server
+
+To run on an iOS emultor, use the following command:
+
+```bash
+yarn ios
+```
+
+to run on an Android emulator:
+
+```bash
+yarn android
+```
+
+## Step 4: Development
+
+The app was developed using Expo Go, a powerful tool for quickly building and testing React Native applications. Expo Go streamlines the development process by providing a development environment & simplifying the deployment to physical devices.
+
+It's worth noting that should the need arise, this Expo application can be easily converted into a React Native bare app, allowing for greater customization and integration of native modules and libraries.
+
+Converting to a bare app provides developers with the flexibility to fine-tune the application to meet specific requirements while retaining the core functionality and structure already implemented in Expo.
+
+## Additional Notes
+
+- You can also run the app on physical devices by installing the Expo Go app and scanning the QR code displayed in the Expo Developer Tools.
+
+- For more information on Expo development and debugging, please refer to the [Expo documentation](https://docs.expo.dev/).
+
+With these steps, you should be able to pull, run, and test your Expo application locally on both iOS and Android emulators. Happy coding!
+
+---
+
+## Application Features
+
+### Screens
+
+**Home Screen**
+
+- Display current weather conditions:
+  - Temperature
+  - Weather description
+
+**Forecast Screen**
+
+- Display a 5-day weather forecast for the user's current location
+
+- Implement the ability for the user to:
+  - Search for weather conditions in different locations
+  - Save a city once you've searched for it
+
+### Data Source
+
+- WeatherAPI

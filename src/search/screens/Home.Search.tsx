@@ -59,6 +59,16 @@ function SearchHomeScreen() {
 	})
 
 	async function onSearch() {
+		const alreadyExists = locations.data.find((loc) => loc.searchQuery === locationString)
+
+		if (alreadyExists) {
+			navigation.navigate(SearchRoutes.LOCATION, {
+				location: locationString
+			})
+			setLocationString("")
+			return
+		}
+
 		await refetch()
 	}
 

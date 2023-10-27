@@ -4,7 +4,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native"
 import Card from "../../../shared/components/UI/Card"
 import { spacing } from "../../../shared/theme"
 
-interface WeatherInfoProps extends React.ComponentProps<typeof Card> {
+interface WeatherInfoProps {
 	data: {
 		location: {
 			name: string
